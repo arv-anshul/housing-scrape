@@ -1,0 +1,7 @@
+{
+  "query": "query($service: String, $category: String) { cityListing(service: $service, category: $category) { otherCities { name id cityId url cityClassification image products } } }",
+  "variables": {
+    "service": "buy",
+    "category": "residential"
+  }
+}
