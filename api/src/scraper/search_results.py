@@ -1,7 +1,7 @@
 import asyncio
 import json
 from contextlib import suppress as suppress_error
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from logging import getLogger
 from pathlib import Path
 
@@ -21,13 +21,18 @@ logger = getLogger(__name__)
 class SearchResults:
     start_end_page: tuple[int, int]
     size: int = 30
+    curl_command: str | None = field(default=None, repr=False)
 
     def __post_init__(self) -> None:
         # Validate start_end_page argument
         if self.start_end_page[0] > self.start_end_page[1]:
             raise ValueError("First value must be larger than second value.")
 
-        self.curl = curler.parse_file(SEARCH_RESULT_CURL_PATH)
+        self.curl = (
+            curler.parse_curl(self.curl_command)
+            if self.curl_command
+            else curler.parse_file(SEARCH_RESULT_CURL_PATH)
+        )
         self.json_data = {
             "query": (
                 json.loads(self.curl.data_binary.strip("$").replace("\\\\", "\\"))[  # type: ignore
