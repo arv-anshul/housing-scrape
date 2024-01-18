@@ -1,0 +1,42 @@
+{
+  "query": "\\n  fragment PR on Property {\\n    features {\\n      label\\n      description\\n      id\\n    }\\n    coverImage {\\n      src\\n      alt\\n      videoUrl\\n    }\\n    polygonsHash\\n    hasAutoVideo\\n    imageCount\\n    propertyType\\n    title\\n    subtitle\\n    isUc\\n    isActiveProperty\\n    isMostContacted\\n    isRecentlyAdded\\n    galleryTitle\\n    tracking\\n    price\\n    displayPrice {\\n      value\\n      displayValue\\n      unit\\n      deposit\\n      brokerage\\n      maintenance\\n      displayMaintenance\\n      displayDeposit\\n      displayBrokerage\\n      totalRent\\n      brokerageDuration\\n      depositDuration\\n      displayParkingCharges\\n      displayPaintingCharges\\n      paintingDuration\\n      lockInPeriod\\n    }\\n    address {\\n      address\\n      url\\n      detailedPropertyAddress {\\n        url\\n        val\\n      }\\n      distanceFromEntity\\n    }\\n    url\\n    label\\n    badge\\n    listingId\\n    postedDate\\n    originalListingId\\n    promotions\\n    coords\\n    propertyInformation\\n    tags\\n    furnishingType\\n    builtUpArea {\\n      value\\n      unit\\n    }\\n    sellerCount\\n    meta\\n    sellers {\\n      ...BS\\n      phone {\\n        partialValue\\n      }\\n      isCertifiedAgent\\n      sellerTag\\n      adDeficit\\n    }\\n    emi\\n    brands {\\n      name\\n    }\\n    details {\\n      sliceViewUrl\\n      images {\\n        images {\\n          src\\n          alt\\n          aspectRatio\\n        }\\n      }\\n      config {\\n        displayAreaType\\n        propertyConfig {\\n          key\\n          label\\n          data {\\n            id\\n            price {\\n              value\\n              displayValue\\n              unit\\n            }\\n            areaConfig {\\n              name\\n              areaInfo {\\n                value\\n                unit\\n                displayArea\\n              }\\n            }\\n          }\\n        }\\n      }\\n      propertyConfigs {\\n        id\\n        icon\\n        label\\n        description\\n        meta\\n        showOnMobile\\n        mobileLabel\\n        formattedDescription\\n      }\\n    }\\n    minDistanceLocality {\\n      distance\\n      name\\n    }\\n    isAuctionFlat\\n    photoUnderReview\\n    propertyTags\\n    isMyGateCertified\\n  }\\n  fragment SR on Property {\\n    ...PR\\n    certifiedDetails {\\n      isVerifiedProperty\\n      similarPropertyKeys\\n      isCertifiedProperty\\n    }\\n    description {\\n      overviewDescription\\n      highlights\\n    }\\n    videoTour {\\n      startDate\\n      endDate\\n      url\\n      meetingNumber\\n    }\\n    highlights\\n    brands {\\n      name\\n      image\\n      theme {\\n        color\\n      }\\n    }\\n    boostedAs\\n  }\\n  fragment BS on User {\\n    name\\n    id\\n    image\\n    firmName\\n    url\\n    type\\n    isPrime\\n    sellerBadge\\n    isPaid\\n    designation\\n    formattedCustomerServedCount\\n  }\\n  fragment Ad on SearchResults {\\n    nearbyProperties {\\n      ...SR\\n      nearByPlaces {\\n        establishmentType\\n        name\\n        distance\\n      }\\n    }\\n    promotedProperties {\\n      type\\n      properties {\\n        ...PR\\n        videoConnectAvailable\\n        micrositeRedirectionURL\\n      }\\n    }\\n    recentlyAddedProperties @include(if: $isRent) {\\n      ...SR\\n      videoConnectAvailable\\n      updatedAt\\n      digitour {\\n        url\\n      }\\n      socialUrgency {\\n        msg\\n      }\\n      socialContext {\\n        msg\\n      }\\n    }\\n    ownerNearbyProperties {\\n      ...SR\\n    }\\n    collections {\\n      title\\n      subTitle\\n      image\\n      propertyCount\\n      url\\n      key\\n    }\\n    sellers @include(if: $addSellersData) {\\n      name\\n      id\\n      image\\n      firmName\\n      url\\n      type\\n      isPrime\\n      sellerBadge\\n      isPaid\\n      designation\\n      stats {\\n        label\\n        description\\n      }\\n      meta\\n      description\\n      sellerDescription\\n      cities {\\n        id\\n        name\\n        image\\n      }\\n      phone {\\n        partialValue\\n      }\\n    }\\n  }\\n  query(\\n    $pageInfo: PageInfoInput\\n    $city: CityInput\\n    $hash: String!\\n    $service: String!\\n    $category: String!\\n    $meta: JSON\\n    $adReq: Boolean!\\n    $bot: Boolean!\\n    $fltcnt: String\\n    $isRent: Boolean!\\n    $isLandmarkSearchActive: Boolean\\n    $addSellersData: Boolean!\\n    $interestLedFilter: String\\n    $landmarkRelevanceExp: Boolean\\n  ) {\\n    searchResults(\\n      hash: $hash\\n      service: $service\\n      category: $category\\n      city: $city\\n      pageInfo: $pageInfo\\n      meta: $meta\\n      fltcnt: $fltcnt\\n      isLandmarkSearchActive: $isLandmarkSearchActive\\n      interestLedFilter: $interestLedFilter\\n      landmarkRelevanceExp: $landmarkRelevanceExp\\n    ) {\\n      properties {\\n        ...SR\\n        videoConnectAvailable\\n        updatedAt\\n        updatedAtStr\\n        verifiedAt\\n        digitour {\\n          url\\n        }\\n        nearByPlaces {\\n          establishmentType\\n          name\\n          distance\\n        }\\n        socialUrgency {\\n          msg\\n        }\\n        socialContext {\\n          msg\\n        }\\n        isBrokerageChargeable\\n        reviewRating\\n        showNewLaunch\\n        isTitanium\\n        isLocalityChampion\\n        distanceFromCoords\\n        collageImageUrl\\n        details {\\n          brochure {\\n            pdf\\n            name\\n            hasBrochure\\n          }\\n        }\\n      }\\n      ...Ad @include(if: $adReq)\\n      config {\\n        filters\\n        pageInfo {\\n          totalCount\\n          size\\n          page\\n        }\\n        entities {\\n          id\\n          type\\n          locationCoordinates\\n        }\\n      }\\n      meta\\n      structuredData @include(if: $bot)\\n      socialProofingIndexes\\n      npoPropertiesData {\\n        totalCount\\n        properties {\\n          ...SR\\n          videoConnectAvailable\\n          updatedAt\\n          digitour {\\n            url\\n          }\\n          nearByPlaces {\\n            establishmentType\\n            name\\n            distance\\n          }\\n          socialUrgency {\\n            msg\\n          }\\n          socialContext {\\n            msg\\n          }\\n          isBrokerageChargeable\\n          reviewRating\\n          showNewLaunch\\n          distanceFromCoords\\n          collageImageUrl\\n        }\\n      }\\n    }\\n  }\\n",
+  "variables": {
+    "hash": "[{QUERY}]",
+    "service": "buy",
+    "category": "residential",
+    "city": {
+      "name": "Mumbai",
+      "id": "a0fd32816f73961748cf",
+      "cityId": "1ca99c33e3d8b987ccf1",
+      "url": "mumbai",
+      "isTierTwo": false,
+      "products": [
+        "buy",
+        "plots",
+        "commercial",
+        "rent",
+        "flatmate",
+        "paying_guest"
+      ]
+    },
+    "pageInfo": {
+      "page": 1,
+      "size": 30
+    },
+    "meta": {
+      "filterMeta": {},
+      "url": "/in/buy/searches/[{QUERY}]",
+      "shouldModifySearchResults": true,
+      "pagination_flow": false,
+      "enableExperimentalFlag": false
+    },
+    "bot": false,
+    "adReq": false,
+    "fltcnt": "",
+    "isRent": false,
+    "isLandmarkSearchActive": false,
+    "addSellersData": false,
+    "interestLedFilter": "",
+    "landmarkRelevanceExp": false
+  }
+}
