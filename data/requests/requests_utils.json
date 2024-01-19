@@ -1,0 +1,18 @@
+{
+  "headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.3",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br",
+    "referer": "https://housing.com/",
+    "app-name": "desktop_web_buyer",
+    "content-type": "application/json; charset=UTF-8",
+    "origin": "https://housing.com",
+    "dnt": "1",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "te": "trailers"
+  }
+}

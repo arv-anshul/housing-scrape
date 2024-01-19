@@ -114,19 +114,16 @@ class ApiHashModel(BaseModel):
         return cls(**data)
 
     @classmethod
-    def generate_new_api_hash(
+    def from_dict(
         cls,
-        hash: str,
-        *,
-        city: City,
-        page_info: PageInfo,
-        meta: Meta,
-        model_kw: dict[str, Any] | None = None,
+        data: dict[str, Any],
     ) -> Self:
         return cls(
-            hash=hash,
-            city=city,
-            pageInfo=page_info,
-            meta=meta,
-            **model_kw if model_kw else {},
+            hash=data["filters"]["fParam"],
+            city=City(**data["filters"]["selectedCity"]),
+            pageInfo=PageInfo(**data["filters"]["pageInfo"]),
+            meta=Meta(
+                url=data["routeParams"]["url"],
+                api=MetaApi(**data["searchResults"]["meta"]["api"]),
+            ),
         )
