@@ -1,10 +1,68 @@
-[tool.ruff]
-# This pyproject.toml file exists in my local system
-# You have to remove/comment this, if you are using `ruff` in your project
-# or, you can provide your own global config file path.
-extend = "~/Developer/pyproject.toml"
+[project]
+name = "housing-scrape"
+version = "0.1.0"
+description = "Scrape data from housing.com website for real estate analysis."
+authors = [{ name = "Anshul Raj Verma", email = "arv.anshu.1864@gmail.com" }]
+readme = "README.md"
+requires-python = ">= 3.11"
+dependencies = [
+    "bs4==0.0.1",
+    "curler==0.2.2",
+    "fastapi==0.108.0",
+    "httpx==0.26.0",
+    "pydantic==2.5.3",
+    "uvicorn==0.25.0",
+]
 
-target-version = "py310" # However, I am using python-3.11
+[tool.rye]
+managed = true
+virtual = true
+
+[tool.rye.scripts]
+app = "uvicorn app:app"
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+extend-select = [
+    "B",
+    "BLE",
+    "C4",
+    "C90",
+    "E",
+    "F",
+    "I",
+    "ICN",
+    "INP",
+    "ISC",
+    "PGH",
+    "PIE",
+    "PTH",
+    "Q",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "TCH",
+    "UP",
+    "W",
+    "YTT",
+]
+extend-ignore = [
+    "B008",
+    "B905",
+    "E501",
+    "E741",
+    "INP001",
+    "ISC001",
+    "N818",
+    "PGH003",
+    "S101",
+    "S301",
+    "UP035",
+]
+extend-unfixable = ["B", "F401"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "F401"]

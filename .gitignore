@@ -9,5 +9,6 @@ __rough__/
 *__rough__*.*
 *.arv
 *.arv.*
+*.lock
 arv.*
 logs/
