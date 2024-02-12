@@ -8,16 +8,14 @@ This is a API by which you can scrape data from [housing.com](https://www.housin
 
 ## Usage
 
-1. Create a virtual environment and install the all requirements of the project:
+1. Install [`rye`](https://rye-up.com) and run:
 
    ```bash
-   pip install -r requirements.txt
+   rye sync
    ```
 
-2. Run the FastAPI instance using `make` command:
+2. Run the FastAPI instance using `rye`:
 
    ```bash
-   uvicorn app:app  # actual command
-
-   make api  # reccommended command
+   rye run app
    ```
